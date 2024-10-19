@@ -2,14 +2,18 @@ import random
 import string
 
 def input_data():
-    choice = input("Выберите способ ввода (1 - вручную, 2 - случайно): ")
-    if choice == '1':
-        return input("Введите текст: ")
-    elif choice == '2':
-        length = int(input("Введите длину случайного текста: "))
-        return ''.join(random.choices(string.ascii_letters + string.punctuation + ' ', k=length))
-    else:
-        print("Неверный выбор!")
+    try:
+        choice = input("Выберите способ ввода (1 - вручную, 2 - случайно): ")
+        if choice == '1':
+            return input("Введите текст: ")
+        elif choice == '2':
+            length = int(input("Введите длину случайного текста: "))
+            return ''.join(random.choices(string.ascii_letters + string.punctuation + ' ', k=length))
+        else:
+            print("Неверный выбор!")
+            return ""
+    except ValueError:
+        print("Ошибка: введите корректное числовое значение для длины.")
         return ""
 
 def execute_algorithm(data):
@@ -28,6 +32,10 @@ def execute_algorithm(data):
     return frequency
 
 def output_result(result):
+    if not result:
+        print("Результаты не доступны. Сначала выполните алгоритм.")
+        return
+    
     for char, freq in result.items():
         print(f"'{char}': {freq:.4f}")
 
